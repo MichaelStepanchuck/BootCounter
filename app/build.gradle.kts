@@ -2,6 +2,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    id("com.google.dagger.hilt.android")
+    kotlin("kapt")
 }
 
 android {
@@ -28,11 +30,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
 
@@ -42,4 +45,10 @@ dependencies {
     implementation(libs.material)
     implementation(libs.constraintlayout)
     implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.dagger.hiltAndroid)
+    implementation(libs.hiltWork)
+    implementation(libs.androidx.startup.runtime)
+    kapt(libs.hiltCompiler)
+    kapt(libs.dagger.hiltAndroidCompiler)
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
 }
